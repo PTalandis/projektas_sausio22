@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
@@ -16,6 +17,7 @@ class StudentController extends Controller
     public function index()
     {
         //
+        return view('student.index');
     }
 
     /**
@@ -26,6 +28,7 @@ class StudentController extends Controller
     public function create()
     {
         //
+        return view('student.create');
     }
 
     /**
@@ -34,9 +37,18 @@ class StudentController extends Controller
      * @param  \App\Http\Requests\StoreStudentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreStudentRequest $request)
+    public function store(Request $request)
     {
         //
+        $student = new Student;
+        $student->name = $request->student_name;
+        $student->surname = $request->student_surname;
+        $student->group_id = $request->student_groupid;
+        $student->image_url = $request->student_imageurl;
+
+        $student->save();
+
+        return redirect()->route('student.index');
     }
 
     /**

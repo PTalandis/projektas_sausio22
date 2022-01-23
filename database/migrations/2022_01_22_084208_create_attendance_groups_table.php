@@ -15,6 +15,10 @@ class CreateAttendanceGroupsTable extends Migration
     {
         Schema::create('attendance_groups', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->longText('description');
+            $table->string('difficulty');
+            $table->bigInteger('school_id');
             $table->timestamps();
         });
     }

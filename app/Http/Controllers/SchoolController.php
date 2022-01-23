@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\School;
 use App\Http\Requests\StoreSchoolRequest;
 use App\Http\Requests\UpdateSchoolRequest;
+use Illuminate\Http\Request;
 
 class SchoolController extends Controller
 {
@@ -16,6 +17,7 @@ class SchoolController extends Controller
     public function index()
     {
         //
+        return view('school.index');
     }
 
     /**
@@ -26,6 +28,7 @@ class SchoolController extends Controller
     public function create()
     {
         //
+        return view('school.create');
     }
 
     /**
@@ -34,9 +37,18 @@ class SchoolController extends Controller
      * @param  \App\Http\Requests\StoreSchoolRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSchoolRequest $request)
+    public function store(Request $request)
     {
         //
+        $school = new School;
+        $school->name = $request->school_name;
+        $school->description = $request->school_description;
+        $school->place = $request->school_place;
+        $school->phone = $request->school_phone;
+
+        $school->save();
+
+        return redirect()->route('school.index');
     }
 
     /**
